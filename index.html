@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ngô Văn Hoàn (Big4rest) - Ecommerce Manager / Operator</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==========================================================================
+           DESIGN SYSTEM: MINIMALIST MONOCHROME
+           ========================================================================== */
+        :root {
+            --color-black: #000000;
+            --color-white: #ffffff;
+            --color-gray-light: #f5f5f5;
+            --color-gray-medium: #888888;
+            --color-gray-dark: #333333;
+
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Source Serif 4', serif;
+            --font-meta: 'JetBrains Mono', monospace;
+
+            --border-thin: 1px solid var(--color-black);
+            --border-medium: 2px solid var(--color-black);
+            --border-thick: 4px solid var(--color-black);
+            --border-massive: 8px solid var(--color-black);
+
+            --spacing-xs: 0.5rem;
+            --spacing-sm: 1rem;
+            --spacing-md: 2rem;
+            --spacing-lg: 4rem;
+            --spacing-xl: 8rem;
+        }
+
+        /* Reset & Base */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            border-radius: 0 !important; /* Strict no-radius rule */
+            box-shadow: none !important; /* Strict no-shadow rule */
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--color-black);
+            background-color: var(--color-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        h1 { font-size: clamp(3.5rem, 8vw, 8rem); letter-spacing: -0.02em; }
+        h2 { font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: -0.01em; }
+        h3 { font-size: clamp(1.5rem, 3vw, 2.5rem); }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.25rem; }
+        
+        p { margin-bottom: var(--spacing-sm); }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+        
+        a:hover { opacity: 0.6; }
+
+        .meta-text {
+            font-family: var(--font-meta);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 700;
+            color: var(--color-gray-dark);
+            display: block;
+        }
+
+        .italic-serif {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        /* Layout & Grid */
+        .container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-md);
+        }
+
+        section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: var(--border-thin);
+        }
+
+        .grid-12 {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        /* Components */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 2rem;
+            font-family: var(--font-meta);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            cursor: pointer;
+            border: var(--border-medium);
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            opacity: 1;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--color-black);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            opacity: 1;
+        }
+
+        .btn-inverted {
+            background-color: var(--color-white);
+            color: var(--color-black);
+            border-color: var(--color-white);
+        }
+
+        .btn-inverted:hover {
+            background-color: transparent;
+            color: var(--color-white);
+            opacity: 1;
+        }
+
+        .rule-accent {
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            margin: var(--spacing-lg) 0;
+        }
+
+        .rule-line {
+            height: 8px;
+            background-color: var(--color-black);
+            flex-grow: 1;
+            max-width: 200px;
+        }
+
+        .rule-square {
+            width: 16px;
+            height: 16px;
+            border: 4px solid var(--color-black);
+        }
+
+        /* Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--color-black);
+            color: var(--color-white);
+            padding: 8px;
+            z-index: 100;
+            font-family: var(--font-meta);
+        }
+        .skip-link:focus { top: 0; }
+
+        /* ==========================================================================
+           SECTION STYLES
+           ========================================================================== */
+        
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            background-color: var(--color-white);
+            border-bottom: var(--border-thin);
+            z-index: 50;
+            padding: var(--spacing-sm) 0;
+        }
+        
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        nav ul {
+            display: flex;
+            gap: var(--spacing-md);
+            list-style: none;
+        }
+
+        nav a {
+            font-family: var(--font-meta);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        /* Hero */
+        #hero {
+            padding-top: var(--spacing-xl);
+            padding-bottom: var(--spacing-xl);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 7fr 5fr;
+            gap: var(--spacing-lg);
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            margin-top: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero-subhead {
+            font-size: 1.25rem;
+            max-width: 90%;
+            color: var(--color-gray-dark);
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-top: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .hero-visual {
+            aspect-ratio: 3/4;
+            border: var(--border-thick);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-md);
+            position: relative;
+        }
+
+        .hero-visual::after {
+            content: '';
+            position: absolute;
+            top: 8px; left: 8px; right: 8px; bottom: 8px;
+            border: var(--border-thin);
+        }
+
+        /* About */
+        .about-grid {
+            grid-template-columns: 4fr 8fr;
+        }
+
+        .about-intro {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-lg);
+            max-width: 800px;
+        }
+
+        .meta-list {
+            list-style: none;
+            border-top: var(--border-thin);
+        }
+
+        .meta-list li {
+            padding: var(--spacing-sm) 0;
+            border-bottom: var(--border-thin);
+            display: grid;
+            grid-template-columns: 100px 1fr;
+            gap: var(--spacing-sm);
+            align-items: baseline;
+        }
+
+        .principles-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .principle-card {
+            border: var(--border-thin);
+            padding: var(--spacing-md);
+        }
+
+        .principle-card .meta-text {
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .principle-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .timeline {
+            margin-top: var(--spacing-xl);
+            border-top: var(--border-thick);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-md);
+            padding-top: var(--spacing-md);
+        }
+
+        .timeline-item {
+            position: relative;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: calc(var(--spacing-md) * -1 - 6px);
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background: var(--color-black);
+        }
+
+        .timeline-item .meta-text {
+            margin-bottom: var(--spacing-xs);
+        }
+
+        /* Skills & Process */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .skill-card {
+            border: var(--border-thin);
+            padding: var(--spacing-md);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .skill-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: var(--spacing-md);
+            border-bottom: var(--border-thin);
+            padding-bottom: var(--spacing-xs);
+        }
+
+        .skill-card ul {
+            list-style: none;
+            flex-grow: 1;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .skill-card li {
+            margin-bottom: var(--spacing-xs);
+            padding-left: 1rem;
+            position: relative;
+        }
+
+        .skill-card li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--color-gray-medium);
+        }
+
+        .process-wrapper {
+            border: var(--border-thick);
+            padding: var(--spacing-lg);
+        }
+
+        .process-title {
+            margin-bottom: var(--spacing-lg);
+            text-align: center;
+        }
+
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--spacing-lg);
+        }
+
+        .process-step h4 {
+            font-family: var(--font-meta);
+            font-size: 1rem;
+            border-bottom: var(--border-medium);
+            padding-bottom: var(--spacing-xs);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .process-step ul {
+            list-style: none;
+        }
+        
+        .process-step li {
+            margin-bottom: var(--spacing-xs);
+            font-size: 0.9rem;
+        }
+
+        /* Case Studies */
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--spacing-md);
+        }
+
+        .case-card {
+            border: var(--border-medium);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .case-header {
+            padding: var(--spacing-md);
+            border-bottom: var(--border-thin);
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        .case-header .meta-text {
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .case-header h3 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        .case-body {
+            padding: var(--spacing-md);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--spacing-md);
+            flex-grow: 1;
+        }
+
+        .case-section-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-md);
+        }
+
+        .case-section h5 {
+            font-family: var(--font-meta);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            margin-bottom: var(--spacing-xs);
+            color: var(--color-gray-medium);
+        }
+
+        .case-results {
+            border-top: var(--border-thin);
+            padding-top: var(--spacing-sm);
+            margin-top: auto;
+        }
+
+        .case-results .metric {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .case-footer {
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-top: var(--border-thin);
+            font-family: var(--font-meta);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            text-align: right;
+            display: block;
+        }
+
+        /* Content Hub */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: var(--spacing-lg);
+        }
+
+        .featured-note {
+            border: var(--border-thick);
+            padding: var(--spacing-md);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .featured-note h3 {
+            font-size: 2.5rem;
+            margin: var(--spacing-md) 0;
+        }
+
+        .note-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .note-item {
+            padding: var(--spacing-md) 0;
+            border-bottom: var(--border-thin);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: var(--spacing-sm);
+            align-items: baseline;
+        }
+
+        .note-item:first-child {
+            padding-top: 0;
+        }
+
+        .note-item h4 {
+            font-size: 1.25rem;
+            margin: 0;
+            margin-top: var(--spacing-xs);
+        }
+
+        /* Social Proof */
+        .logos-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+            margin-bottom: var(--spacing-xl);
+            padding-bottom: var(--spacing-md);
+            border-bottom: var(--border-thin);
+        }
+
+        .logo-placeholder {
+            font-family: var(--font-meta);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-gray-medium);
+            text-transform: uppercase;
+        }
+
+        .testimonial {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+        }
+
+        .testimonial::before {
+            content: '“';
+            font-family: var(--font-display);
+            font-size: 12rem;
+            position: absolute;
+            top: -4rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--color-gray-light);
+            z-index: -1;
+            line-height: 1;
+        }
+
+        .testimonial blockquote {
+            font-size: 2.5rem;
+            line-height: 1.3;
+            margin-bottom: var(--spacing-md);
+        }
+
+        /* Contact (Inverted) */
+        #contact {
+            background-color: var(--color-black);
+            color: var(--color-white);
+            /* Vertical line texture */
+            background-image: repeating-linear-gradient(90deg, transparent, transparent 99px, rgba(255,255,255,0.05) 99px, rgba(255,255,255,0.05) 100px);
+            border-bottom: none;
+        }
+
+        #contact .meta-text {
+            color: var(--color-gray-medium);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+        }
+
+        .contact-offer h2 {
+            font-size: 4rem;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .contact-offer p {
+            font-size: 1.25rem;
+            color: var(--color-gray-medium);
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .contact-info {
+            margin-bottom: var(--spacing-lg);
+        }
+
+        .contact-info p {
+            font-family: var(--font-meta);
+            font-size: 1rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .contact-info a {
+            color: var(--color-white);
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 4px;
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-control {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid var(--color-gray-dark);
+            color: var(--color-white);
+            font-family: var(--font-body);
+            font-size: 1.125rem;
+            padding: var(--spacing-xs) 0;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-bottom: 4px solid var(--color-white);
+        }
+
+        .form-control::placeholder {
+            color: var(--color-gray-dark);
+            font-family: var(--font-meta);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+        
+        select.form-control {
+            appearance: none;
+            border-radius: 0;
+        }
+        
+        select.form-control option {
+            background-color: var(--color-black);
+            color: var(--color-white);
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--spacing-md) 0;
+            border-top: var(--border-thin);
+            background-color: var(--color-white);
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-meta);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        /* ==========================================================================
+           RESPONSIVE
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .hero-grid, .about-grid, .content-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .case-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-visual {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --spacing-xl: 4rem;
+                --spacing-lg: 2rem;
+            }
+            
+            nav { display: none; } /* Mobile approach: hide nav, rely on scroll */
+            
+            .principles-list, .timeline, .process-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline-item {
+                padding-left: var(--spacing-md);
+                border-left: var(--border-thick);
+                padding-bottom: var(--spacing-md);
+            }
+            
+            .timeline-item::before {
+                top: 0;
+                left: calc(var(--spacing-md) * -1 - 6px);
+            }
+            
+            .timeline {
+                border-top: none;
+                padding-top: 0;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .case-section-group {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial blockquote {
+                font-size: 1.75rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+            
+            .contact-offer h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <!-- HEADER -->
+    <header>
+        <div class="container header-inner">
+            <div class="logo">NGÔ VĂN HOÀN</div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#work">Work</a></li>
+                    <li><a href="#notes">Notes</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- HERO SECTION -->
+        <section id="hero">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <span class="meta-text">ECOMMERCE MANAGER / DTC POD / OPERATOR</span>
+                    <h1>NGÔ VĂN HOÀN</h1>
+                    <p class="hero-subhead">
+                        Xây dựng và vận hành hệ thống Ecommerce xuyên biên giới (D2C). Tập trung vào P&L, Automation và tăng trưởng bền vững, không chạy theo vanity metrics.
+                    </p>
+                    
+                    <div class="rule-accent">
+                        <div class="rule-line"></div>
+                        <div class="rule-square"></div>
+                    </div>
+
+                    <div class="hero-ctas">
+                        <a href="#work" class="btn btn-primary">Xem Case Studies</a>
+                        <a href="#contact" class="btn btn-outline">Liên hệ hợp tác</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <span class="meta-text">PORTRAIT / BLACK & WHITE</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section id="about">
+            <div class="container">
+                <h2>Tôi là ai trong hệ thống Ecommerce?</h2>
+                <p class="about-intro">
+                    Tôi là một full-stack Ecommerce Operator, chuyên sâu vào mô hình Print-on-Demand (POD) cho thị trường US/EU. Làm việc trực tiếp với ShopBase, WooCommerce, Klaviyo, GA4, n8n và Lark Suite. Tôi không chỉ làm marketing, tôi tối ưu toàn bộ chuỗi giá trị từ traffic đến profit.
+                </p>
+
+                <div class="grid-12 about-grid">
+                    <div class="about-meta">
+                        <ul class="meta-list">
+                            <li>
+                                <span class="meta-text">Location</span>
+                                <span>Hồ Chí Minh, Vietnam</span>
+                            </li>
+                            <li>
+                                <span class="meta-text">Role</span>
+                                <span>Ecommerce Manager / Operator</span>
+                            </li>
+                            <li>
+                                <span class="meta-text">Market</span>
+                                <span>US, EU, Global Cross-border</span>
+                            </li>
+                            <li>
+                                <span class="meta-text">Stack</span>
+                                <span>ShopBase, Woo, Klaviyo, n8n</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="about-principles">
+                        <div class="principles-list">
+                            <div class="principle-card">
+                                <span class="meta-text">01.</span>
+                                <h4>Pareto 80/20</h4>
+                                <p>Tập trung nguồn lực vào 20% đòn bẩy tạo ra 80% doanh thu và lợi nhuận. Loại bỏ các quy trình rườm rà không mang lại giá trị.</p>
+                            </div>
+                            <div class="principle-card">
+                                <span class="meta-text">02.</span>
+                                <h4>First Principles</h4>
+                                <p>Giải quyết vấn đề từ gốc rễ. Không copy tactics mù quáng, hiểu rõ tại sao một chiến dịch hoạt động trước khi scale.</p>
+                            </div>
+                            <div class="principle-card">
+                                <span class="meta-text">03.</span>
+                                <h4>Occam’s Razor</h4>
+                                <p>Hệ thống càng đơn giản càng ít lỗi. Ưu tiên automation và quy trình tinh gọn thay vì nhồi nhét quá nhiều tool phức tạp.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <span class="meta-text">2018 - 2019</span>
+                        <p>Bắt đầu với Dropshipping & Facebook Ads. Hiểu rõ luật chơi của traffic paid.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="meta-text">2020 - 2021</span>
+                        <p>Chuyển dịch sang POD US/EU. Xây dựng team in-house, tối ưu fulfillment & CS.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="meta-text">2022 - 2023</span>
+                        <p>Scale hệ thống qua SEO & Email Marketing. Giảm phụ thuộc vào Paid Ads.</p>
+                    </div>
+                    <div class="timeline-item">
+                        <span class="meta-text">2024 - Present</span>
+                        <p>Ecommerce Manager. Ứng dụng AI (n8n, automation) vào vận hành & P&L management.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS & PROCESS SECTION -->
+        <section id="skills">
+            <div class="container">
+                <h2>Tôi quản lý những đòn bẩy nào?</h2>
+                
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h4>Ecommerce Ops & POD</h4>
+                        <ul>
+                            <li>Quản lý platform: ShopBase, WooCommerce</li>
+                            <li>Tối ưu Fulfillment & Logistics US/EU</li>
+                            <li>Product Catalog Management</li>
+                            <li>Customer Service SOPs</li>
+                        </ul>
+                        <span class="meta-text">LEVEL: EXPERT</span>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Growth Engine</h4>
+                        <ul>
+                            <li>SEO cho Ecommerce (Technical & Content)</li>
+                            <li>Paid Media (Meta, Google Ads)</li>
+                            <li>Conversion Rate Optimization (CRO)</li>
+                            <li>Email Marketing (Klaviyo flows)</li>
+                        </ul>
+                        <span class="meta-text">LEVEL: ADVANCED</span>
+                    </div>
+                    <div class="skill-card">
+                        <h4>AI & Automation</h4>
+                        <ul>
+                            <li>Workflow Automation với n8n</li>
+                            <li>Data Tracking & GA4 Setup</li>
+                            <li>Automated Reporting (Lark Suite)</li>
+                            <li>Content Generation Pipelines</li>
+                        </ul>
+                        <span class="meta-text">LEVEL: ADVANCED</span>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Leadership & Numbers</h4>
+                        <ul>
+                            <li>P&L Management & Forecasting</li>
+                            <li>Team Building & Hiring</li>
+                            <li>Vendor & Supplier Negotiation</li>
+                            <li>Resource Allocation</li>
+                        </ul>
+                        <span class="meta-text">LEVEL: EXPERT</span>
+                    </div>
+                </div>
+
+                <div class="process-wrapper">
+                    <h3 class="process-title">Quy trình vận hành (The Operator's Playbook)</h3>
+                    <div class="process-grid">
+                        <div class="process-step">
+                            <h4>STEP 01 – DIAGNOSE</h4>
+                            <ul>
+                                <li>Audit toàn bộ funnel từ Traffic đến Retention.</li>
+                                <li>Phân tích P&L, tìm ra điểm rò rỉ lợi nhuận (leakage).</li>
+                                <li>Đánh giá năng lực team và tech stack hiện tại.</li>
+                            </ul>
+                        </div>
+                        <div class="process-step">
+                            <h4>STEP 02 – DESIGN</h4>
+                            <ul>
+                                <li>Xây dựng chiến lược Growth dựa trên data thực tế.</li>
+                                <li>Thiết kế hệ thống Automation (n8n, Lark) để giảm manual work.</li>
+                                <li>Lên kế hoạch KPIs và Unit Economics rõ ràng.</li>
+                            </ul>
+                        </div>
+                        <div class="process-step">
+                            <h4>STEP 03 – DEPLOY & ITERATE</h4>
+                            <ul>
+                                <li>Triển khai theo sprint, ưu tiên high-impact tasks.</li>
+                                <li>Tracking real-time qua GA4 & Custom Dashboards.</li>
+                                <li>A/B Testing liên tục và scale những winning patterns.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASE STUDIES SECTION -->
+        <section id="work">
+            <div class="container">
+                <h2>Kết quả thực chiến</h2>
+                
+                <div class="case-grid">
+                    <!-- Case 1 -->
+                    <div class="case-card">
+                        <div class="case-header">
+                            <span class="meta-text">CASE STUDY / POD / US MARKET</span>
+                            <h3>Scale store POD Niche Pet từ $20k lên $150k/tháng</h3>
+                        </div>
+                        <div class="case-body">
+                            <div class="case-section-group">
+                                <div class="case-section">
+                                    <h5>Context</h5>
+                                    <p>Store phụ thuộc 100% vào Facebook Ads, chi phí CPA tăng cao, biên lợi nhuận mỏng (&lt; 10%). Cần đa dạng hóa traffic và tối ưu LTV.</p>
+                                </div>
+                                <div class="case-section">
+                                    <h5>Levers</h5>
+                                    <p>Triển khai SEO cluster cho các dòng sản phẩm ngách. Setup hệ thống Klaviyo Flows (Welcome, Abandoned Cart, Post-purchase). Tối ưu CRO trang product page.</p>
+                                </div>
+                            </div>
+                            <div class="case-results">
+                                <h5>Results</h5>
+                                <div class="metric">+22%</div>
+                                <p>Biên lợi nhuận ròng (Net Margin) đạt được sau 6 tháng, giảm 40% phụ thuộc vào Paid Ads.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="case-footer">Xem chi tiết case &rarr;</a>
+                    </div>
+
+                    <!-- Case 2 -->
+                    <div class="case-card">
+                        <div class="case-header">
+                            <span class="meta-text">PROCESS / AUTOMATION / GLOBAL</span>
+                            <h3>Tự động hóa hệ thống báo cáo & Fulfillment bằng n8n</h3>
+                        </div>
+                        <div class="case-body">
+                            <div class="case-section-group">
+                                <div class="case-section">
+                                    <h5>Context</h5>
+                                    <p>Team Ops mất 4 giờ mỗi ngày để xử lý file CSV đơn hàng, map tracking và làm báo cáo P&L thủ công trên Google Sheets.</p>
+                                </div>
+                                <div class="case-section">
+                                    <h5>Levers</h5>
+                                    <p>Xây dựng workflow trên n8n kết nối API ShopBase, Google Sheets và Lark Suite. Tự động sync tracking và gen báo cáo P&L real-time.</p>
+                                </div>
+                            </div>
+                            <div class="case-results">
+                                <h5>Results</h5>
+                                <div class="metric">20h/tuần</div>
+                                <p>Thời gian tiết kiệm được cho team Ops, zero human-error trong quá trình xử lý đơn hàng.</p>
+                            </div>
+                        </div>
+                        <a href="#" class="case-footer">Xem chi tiết case &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTENT HUB SECTION -->
+        <section id="notes">
+            <div class="container">
+                <h2>Ghi chú từ bàn điều khiển</h2>
+                <span class="meta-text" style="margin-bottom: var(--spacing-lg);">SEO / AI & AUTOMATION / PAID MEDIA / ECOM OPS</span>
+                
+                <div class="content-grid">
+                    <div class="featured-note">
+                        <span class="meta-text">FEATURED NOTE</span>
+                        <h3>SEO cho POD: Đừng xây nhà trên đất của người khác. Hãy sở hữu Traffic.</h3>
+                        <p>Phân tích chiến lược xây dựng Topical Authority cho các store Print-on-Demand. Cách thoát khỏi vòng xoáy đốt tiền Facebook Ads và xây dựng tài sản digital bền vững.</p>
+                        <div style="margin-top: var(--spacing-md);">
+                            <a href="#" class="btn btn-outline">Đọc bài viết</a>
+                        </div>
+                    </div>
+                    
+                    <div class="note-list">
+                        <div class="note-item">
+                            <div>
+                                <span class="meta-text">AUTOMATION • 12/10/2025</span>
+                                <h4>Sử dụng n8n để tự động hóa báo cáo GA4 & P&L mỗi sáng</h4>
+                            </div>
+                            <a href="#" class="meta-text">Đọc &rarr;</a>
+                        </div>
+                        <div class="note-item">
+                            <div>
+                                <span class="meta-text">TRACKING • 28/09/2025</span>
+                                <h4>Server-side Tracking cho DTC: Setup chuẩn từ ngày đầu</h4>
+                            </div>
+                            <a href="#" class="meta-text">Đọc &rarr;</a>
+                        </div>
+                        <div class="note-item">
+                            <div>
+                                <span class="meta-text">PAID MEDIA • 15/09/2025</span>
+                                <h4>Cấu trúc chiến dịch Google Performance Max cho store POD</h4>
+                            </div>
+                            <a href="#" class="meta-text">Đọc &rarr;</a>
+                        </div>
+                        <div class="note-item">
+                            <div>
+                                <span class="meta-text">OPERATIONS • 02/09/2025</span>
+                                <h4>Checklist audit một store WooCommerce trước khi scale</h4>
+                            </div>
+                            <a href="#" class="meta-text">Đọc &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SOCIAL PROOF SECTION -->
+        <section id="social-proof">
+            <div class="container">
+                <div class="logos-row">
+                    <span class="logo-placeholder">US POD BRAND #1</span>
+                    <span class="logo-placeholder">EU DTC APPAREL</span>
+                    <span class="logo-placeholder">GLOBAL DROPSHIP CO.</span>
+                    <span class="logo-placeholder">NICHE JEWELRY US</span>
+                </div>
+
+                <div class="testimonial">
+                    <blockquote class="italic-serif">
+                        "Hoàn không chỉ chạy ads hay làm SEO. Cậu ấy nhìn hệ thống dưới góc độ của một người làm kinh doanh. Từ lúc Hoàn take care phần Ops và Growth, biên lợi nhuận của chúng tôi đã ổn định hơn rất nhiều nhờ các luồng automation và tối ưu LTV."
+                    </blockquote>
+                    <span class="meta-text">Founder – DTC Brand US</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION (INVERTED) -->
+        <section id="contact">
+            <div class="container contact-grid">
+                <div class="contact-offer">
+                    <h2>Cần một Ecommerce Manager thực chiến cho DTC/POD?</h2>
+                    <p>Tôi ưu tiên các dự án DTC/POD tại thị trường US/EU có định hướng phát triển bền vững.</p>
+                    <p>Hình thức hợp tác: Consulting, Part-time Operator, hoặc Fractional Ecommerce Manager.</p>
+                    <div style="margin-top: var(--spacing-lg);">
+                        <a href="mailto:me@ngohoan.com" class="btn btn-inverted">Gửi brief qua email</a>
+                    </div>
+                </div>
+                
+                <div class="contact-form-area">
+                    <div class="contact-info">
+                        <p>EMAIL: <a href="mailto:me@ngohoan.com">me@ngohoan.com</a></p>
+                        <p>LINKEDIN: <a href="https://www.linkedin.com/in/ngohoan/" target="_blank">linkedin.com/in/ngohoan</a></p>
+                        <p>X (TWITTER): <a href="https://twitter.com/ngohoancom" target="_blank">@ngohoancom</a></p>
+                    </div>
+
+                    <form action="#" method="POST" onsubmit="event.preventDefault();">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="TÊN CỦA BẠN" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="EMAIL LIÊN HỆ" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="CÔNG TY / BRAND">
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" required>
+                                <option value="" disabled selected>NGÂN SÁCH DỰ KIẾN</option>
+                                <option value="&lt; $1000">&lt; $1,000</option>
+                                <option value="$1000 - $5000">$1,000 - $5,000</option>
+                                <option value="&gt; $5000">&gt; $5,000</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="MÔ TẢ NGẮN GỌN NHU CẦU CỦA BẠN" required>
+                        </div>
+                        <button type="submit" class="btn btn-inverted" style="margin-top: var(--spacing-sm); width: 100%;">Gửi thông tin</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container footer-inner">
+            <div>&copy; 2026 Ngô Văn Hoàn (Big4rest) &mdash; Ecommerce Manager / Operator</div>
+            <div class="footer-links">
+                <a href="mailto:me@ngohoan.com">Email</a>
+                <a href="https://www.linkedin.com/in/ngohoan/" target="_blank">LinkedIn</a>
+                <a href="https://twitter.com/ngohoancom" target="_blank">X</a>
+                <span>Made in Thủ Đức, Hồ Chí Minh</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+
